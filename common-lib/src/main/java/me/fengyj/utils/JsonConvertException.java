@@ -1,4 +1,4 @@
-package me.fengyj.springdemo.utils;
+package me.fengyj.utils;
 
 public class JsonConvertException extends RuntimeException {
     public JsonConvertException(String msg, Throwable innerEx) {

@@ -1,4 +1,4 @@
-package me.fengyj.springdemo.exception;
+package me.fengyj.exception;
 
 public class GeneralException extends ApplicationBaseException {
 

@@ -4,19 +4,108 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="407df295-0184-48b7-b523-3ac78bfc55bd" name="Changes" comment="" />
+    <list default="true" id="407df295-0184-48b7-b523-3ac78bfc55bd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-lib/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-lib/src/main/java/me/fengyj/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-lib/src/main/java/me/fengyj/exception/AggregatedException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-lib/src/main/java/me/fengyj/exception/ApplicationBaseException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-lib/src/main/java/me/fengyj/exception/ErrorSeverity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-lib/src/main/java/me/fengyj/exception/ExceptionUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-lib/src/main/java/me/fengyj/exception/GeneralException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-lib/src/main/java/me/fengyj/exception/InfrastructureException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-lib/src/main/java/me/fengyj/exception/ResourceInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-lib/src/main/java/me/fengyj/exception/RetrievableException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-lib/src/main/java/me/fengyj/utils/IOUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-lib/src/main/java/me/fengyj/utils/JsonConvertException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-lib/src/main/java/me/fengyj/utils/JsonConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-lib/src/main/java/me/fengyj/utils/RetryPolicy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-lib/src/main/java/me/fengyj/utils/ThreadUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-lib/src/main/java/me/fengyj/utils/XmlConvertException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/common-lib/src/main/java/me/fengyj/utils/XmlConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
   </component>
+  <component name="ProjectId" id="2UNa9B8QrqWZpncDTDcwxSYNYNQ" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "jdk.selected.JAVA_MODULE": "17",
+    "last_opened_file_path": "C:/Users/fengy/CodeProjects/Personal/JavaCommonLib/common-lib/src/main/resources"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\fengy\CodeProjects\Personal\JavaCommonLib\common-lib\src\main\resources" />
+      <recent name="C:\Users\fengy\CodeProjects\Personal\JavaCommonLib\common-lib\src\main\java\me\fengyj" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn versions: set -DnewVersion=0.1.1-SNATHOST" />
+      <command value="mvn versions:set versions:update-parent" />
+      <command value="mvn compile" />
+      <command value="mvn clean" />
+      <command value="mvn package" />
+      <command value="mvn install" />
+      <command value="mvn deploy" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Maven.build">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="me.fengyj.App" />
+      <module name="common-lib" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="me.fengyj.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="JavaCommonLib" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="JavaCommonLib" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.App" />
+      <item itemvalue="Maven.build" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.App" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

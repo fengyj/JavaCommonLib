@@ -1,23 +1,16 @@
-package me.fengyj.springdemo.utils;
+package me.fengyj.utils;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.BiConsumer;
-
+import me.fengyj.exception.ErrorSeverity;
+import me.fengyj.exception.ExceptionUtils;
+import me.fengyj.exception.GeneralException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import me.fengyj.springdemo.exception.ErrorSeverity;
-import me.fengyj.springdemo.exception.ExceptionUtils;
-import me.fengyj.springdemo.exception.GeneralException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.BiConsumer;
 
 public class ThreadUtils {
 

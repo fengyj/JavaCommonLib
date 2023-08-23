@@ -1,4 +1,8 @@
-package me.fengyj.springdemo.utils;
+package me.fengyj.utils;
+
+import me.fengyj.exception.RetrievableException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.EnumSet;
@@ -9,11 +13,6 @@ import java.util.concurrent.CompletionException;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import me.fengyj.springdemo.exception.RetrievableException;
 
 public class RetryPolicy {
 
@@ -71,7 +70,10 @@ public class RetryPolicy {
                     actionWhenFinally.run();
             }
         }
-        throw lastEx;
+        if(lastEx != null)
+            throw lastEx;
+        else
+            throw new RuntimeException("Suppose shouldn't get this error.");
     }
 
     private <T> CompletableFuture<T> executeAsync(
@@ -134,10 +136,7 @@ public class RetryPolicy {
                     actionWhenCatch.accept(ex);
                 if (retry >= this.maxRetryTimes) {
 
-                    LogUtils.logDebug(logger, String.format(
-                            "Tried %d times because of %s.",
-                            this.maxRetryTimes,
-                            ExceptionUtils.toString(ex.getCause() == null ? ex : ex.getCause())));
+                    logger.debug("Tried over the max times and failed.", ex);
                     throw ex;
                 } else if (this.retryInterval > 0) {
 
@@ -148,7 +147,8 @@ public class RetryPolicy {
                     actionWhenFinally.run();
             }
         }
-        throw lastEx;
+        if(lastEx != null)
+            throw lastEx;
     }
 
     private int getInterval(int times) {

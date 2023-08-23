@@ -1,4 +1,4 @@
-package me.fengyj.springdemo.utils;
+package me.fengyj.utils;
 
 public class XmlConvertException extends RuntimeException {
     public XmlConvertException(String msg, Throwable innerEx) {

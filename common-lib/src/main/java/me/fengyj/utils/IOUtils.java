@@ -1,4 +1,7 @@
-package me.fengyj.springdemo.utils;
+package me.fengyj.utils;
+
+import me.fengyj.exception.ErrorSeverity;
+import me.fengyj.exception.GeneralException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -13,15 +16,14 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.springframework.beans.factory.annotation.Value;
-
-import me.fengyj.springdemo.exception.ErrorSeverity;
-import me.fengyj.springdemo.exception.GeneralException;
-
 public class IOUtils {
-    
-    @Value("${application.tmp_dir:${java.io.tmpdir:/tmp/}}")
-    private static final String TEMP_DIR = "java.io.tmpdir";
+
+    private static final String SYSTEM_TEMP_DIR_PROP_NAME = "java.io.tmpdir";
+
+    private static final String TEMP_DIR = System.getProperty(SYSTEM_TEMP_DIR_PROP_NAME)
+            .endsWith(File.separator)
+            ? System.getProperty(SYSTEM_TEMP_DIR_PROP_NAME)
+            : System.getProperty(SYSTEM_TEMP_DIR_PROP_NAME) + File.separator;
 
     private IOUtils() {
 

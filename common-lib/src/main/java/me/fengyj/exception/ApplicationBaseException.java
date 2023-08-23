@@ -1,4 +1,4 @@
-package me.fengyj.springdemo.exception;
+package me.fengyj.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.spi.LoggingEventBuilder;

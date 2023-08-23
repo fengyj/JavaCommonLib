@@ -1,4 +1,4 @@
-package me.fengyj.springdemo.exception;
+package me.fengyj.exception;
 
 import java.util.LinkedList;
 import java.util.List;
