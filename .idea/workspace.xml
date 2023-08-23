@@ -50,13 +50,13 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "C:/Users/fengy/CodeProjects/Personal/JavaCommonLib/common-lib/src/main/resources"
+    "last_opened_file_path": "$PROJECT_DIR$/common-lib/src/main/resources"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\fengy\CodeProjects\Personal\JavaCommonLib\common-lib\src\main\resources" />
-      <recent name="C:\Users\fengy\CodeProjects\Personal\JavaCommonLib\common-lib\src\main\java\me\fengyj" />
+      <recent name="$PROJECT_DIR$\common-lib\src\main\resources" />
+      <recent name="$PROJECT_DIR$\common-lib\src\main\java\me\fengyj" />
     </key>
   </component>
   <component name="RunAnythingCache">
