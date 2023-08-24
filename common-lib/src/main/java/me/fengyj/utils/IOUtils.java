@@ -3,10 +3,7 @@ package me.fengyj.utils;
 import me.fengyj.exception.ErrorSeverity;
 import me.fengyj.exception.GeneralException;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -71,6 +68,75 @@ public class IOUtils {
         }
     }
 
+    public static byte[] readAsBytesFromResource(String fileName) throws IOException {
+
+        try (InputStream is = ClassLoader.getSystemResource(fileName).openStream()) {
+            return toBytes(is);
+        }
+    }
+
+    public static String readAsTextFromResource(String fileName) throws IOException {
+
+        try (InputStream is = ClassLoader.getSystemResource(fileName).openStream()) {
+            var bytes = toBytes(is);
+            return StringUtils.fromBytes(bytes);
+        }
+    }
+
+    public static byte[] readAsBytes(Path filePath) throws IOException {
+
+        try(InputStream is = new FileInputStream(filePath.toFile())) {
+            return toBytes(is);
+        }
+    }
+
+    public static String readAsText(Path filePath) throws IOException {
+
+        try(InputStream is = new FileInputStream(filePath.toFile())) {
+            return StringUtils.fromStream(is);
+        }
+    }
+
+    public static void writeFile(Path filePath, byte[] bytes) throws IOException {
+
+        try(OutputStream os = new FileOutputStream(filePath.toFile())){
+            os.write(bytes);
+            os.flush();
+        }
+    }
+
+    public static void writeFile(Path filePath, String text) throws IOException {
+
+        try(OutputStream os = new FileOutputStream(filePath.toFile())){
+            os.write(StringUtils.getBytes(text));
+            os.flush();
+        }
+    }
+
+    /**
+     * Delete file or directory
+     * @param filePath
+     */
+    public static void deleteFile(Path filePath) {
+
+        var f = filePath.toFile();
+        if (!f.exists()) return;
+
+        if (f.isDirectory()) {
+            File[] items = f.listFiles();
+            if (items != null) {
+                for (File c : items)
+                    deleteFile(c.toPath());
+            }
+        }
+        if (!f.delete()) {
+            throw GeneralException.create(
+                    ErrorSeverity.Error,
+                    String.format("Delete %s failed.", f.getPath()),
+                    null);
+        }
+    }
+
     public static List<Path> listFiles(Path folder, int maxDeep) {
 
         try(Stream<Path> stream = Files.walk(folder, maxDeep)) {
@@ -114,24 +180,5 @@ public class IOUtils {
     public static String createTmpFileInTmpFolder(String folder, String ext) {
 
         return String.format("%s%s.%s", folder, UUID.randomUUID(), ext);
-    }
-
-    public static void delete(File f) {
-
-        if (!f.exists()) return;
-
-        if (f.isDirectory()) {
-            File[] items = f.listFiles();
-            if (items != null) {
-                for (File c : items)
-                    delete(c);
-            }
-        }
-        if (!f.delete()) {
-            throw GeneralException.create(
-                ErrorSeverity.Error,
-                String.format("Delete %s failed.", f.getPath()),
-                null);
-        }
     }
 }
