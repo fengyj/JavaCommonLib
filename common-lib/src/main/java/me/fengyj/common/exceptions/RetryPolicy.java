@@ -1,6 +1,8 @@
-package me.fengyj.utils;
+package me.fengyj.common.exceptions;
 
-import me.fengyj.exception.RetrievableException;
+import me.fengyj.common.exceptions.functionalinterfaces.ExceptionableRunnable;
+import me.fengyj.common.exceptions.functionalinterfaces.ExceptionableSupplier;
+import me.fengyj.common.utils.ThreadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,8 +46,8 @@ public class RetryPolicy {
             this.random = null;
     }
 
-    public <T> T execute(
-            RetriableSupplier<T> supplier,
+    public <T> T get(
+            ExceptionableSupplier<T, RetrievableException> supplier,
             Consumer<RetrievableException> actionWhenCatch,
             Runnable actionWhenFinally) {
 
@@ -76,7 +78,7 @@ public class RetryPolicy {
             throw new RuntimeException("Suppose shouldn't get this error.");
     }
 
-    private <T> CompletableFuture<T> executeAsync(
+    private <T> CompletableFuture<T> getAsync(
             Supplier<CompletableFuture<T>> supplier,
             Consumer<Throwable> exceptionHandle,
             int triedTimes) {
@@ -92,10 +94,11 @@ public class RetryPolicy {
                         try {
                             exceptionHandle.accept(ex);
                         } catch (RetrievableException e) {
+                            e.setTriedTimes(times);
                             if (this.retryInterval > 0) {
 
                                 ThreadUtils.sleep(getInterval(times));
-                                return executeAsync(
+                                return getAsync(
                                         supplier,
                                         exceptionHandle,
                                         times);
@@ -112,15 +115,15 @@ public class RetryPolicy {
                 }).thenCompose(Function.identity());
     }
 
-    public <T> CompletableFuture<T> executeAsync(
+    public <T> CompletableFuture<T> getAsync(
             Supplier<CompletableFuture<T>> supplier,
             Consumer<Throwable> exceptionHandle) {
 
-        return executeAsync(supplier, exceptionHandle, 0);
+        return getAsync(supplier, exceptionHandle, 0);
     }
 
-    public void execute(
-            RetriableRunnable action,
+    public void run(
+            ExceptionableRunnable<RetrievableException> action,
             Consumer<RetrievableException> actionWhenCatch,
             Runnable actionWhenFinally) {
 
@@ -131,6 +134,7 @@ public class RetryPolicy {
                 action.run();
                 return;
             } catch (RetrievableException ex) {
+                ex.setTriedTimes(retry);
                 lastEx = ex;
                 if (actionWhenCatch != null)
                     actionWhenCatch.accept(ex);
@@ -202,17 +206,5 @@ public class RetryPolicy {
          * pow(retryTime, 1.3))
          */
         Jitter
-    }
-
-    @FunctionalInterface
-    public interface RetriableRunnable {
-
-        void run() throws RetrievableException;
-    }
-
-    @FunctionalInterface
-    public interface RetriableSupplier<T> {
-
-        T get() throws RetrievableException;
     }
 }

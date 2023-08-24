@@ -1,4 +1,4 @@
-package me.fengyj;
+package me.fengyj.common;
 
 import org.slf4j.LoggerFactory;
 

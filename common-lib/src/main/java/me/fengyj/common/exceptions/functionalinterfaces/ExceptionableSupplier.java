@@ -1,4 +1,4 @@
-package me.fengyj.exception;
+package me.fengyj.common.exceptions.functionalinterfaces;
 
 @FunctionalInterface
 public interface ExceptionableSupplier<T, E extends Exception> {

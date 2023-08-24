@@ -1,7 +1,7 @@
-package me.fengyj.utils;
+package me.fengyj.common.utils;
 
-import me.fengyj.exception.ErrorSeverity;
-import me.fengyj.exception.GeneralException;
+import me.fengyj.common.exceptions.ErrorSeverity;
+import me.fengyj.common.exceptions.GeneralException;
 
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -23,21 +24,22 @@ public class IOUtils {
             : System.getProperty(SYSTEM_TEMP_DIR_PROP_NAME) + File.separator;
 
     private IOUtils() {
-
+        // empty
     }
 
-    public static byte[] toBytes(ByteBuffer buffer) {
+    public static byte[] readBufferAsBytes(ByteBuffer buffer) {
 
         buffer.rewind();
-        byte[] bytes = new byte[buffer.remaining()];
+        var bytes = new byte[buffer.remaining()];
         buffer.get(bytes);
         return bytes;
     }
 
-    public static byte[] toBytes(InputStream inputStream) throws IOException {
+    public static byte[] readStreamAsBytes(InputStream inputStream) throws IOException {
 
-        try (ByteArrayOutputStream result = new ByteArrayOutputStream()) {
-            byte[] buffer = new byte[1024 * 32];
+        try (var result = new ByteArrayOutputStream()) {
+
+            var buffer = new byte[1024 * 32];
             int length;
             while ((length = inputStream.read(buffer)) != -1) {
                 result.write(buffer, 0, length);
@@ -48,10 +50,11 @@ public class IOUtils {
         }
     }
 
-    public static byte[] toBytes(InputStream inputStream, int maxLengthToRead) throws IOException {
+    public static byte[] readStreamAsBytes(InputStream inputStream, int maxLengthToRead) throws IOException {
 
-        try (ByteArrayOutputStream result = new ByteArrayOutputStream()) {
-            byte[] buffer = new byte[1024 * 32];
+        try (var result = new ByteArrayOutputStream()) {
+
+            var buffer = new byte[1024 * 32];
 
             int lengthHasRead = 0;
             while (true) {
@@ -68,38 +71,79 @@ public class IOUtils {
         }
     }
 
-    public static byte[] readAsBytesFromResource(String fileName) throws IOException {
+    public static String readStreamAsText(InputStream inputStream) throws IOException {
 
-        try (InputStream is = ClassLoader.getSystemResource(fileName).openStream()) {
-            return toBytes(is);
+        var bytes = readStreamAsBytes(inputStream);
+        return StringUtils.fromBytes(bytes);
+    }
+
+    public static byte[] readResourceAsBytes(String fileName) throws IOException {
+
+        try (var is = ClassLoader.getSystemResource(fileName).openStream()) {
+            return readStreamAsBytes(is);
         }
     }
 
-    public static String readAsTextFromResource(String fileName) throws IOException {
+    public static String readResourceAsText(String fileName) throws IOException {
 
-        try (InputStream is = ClassLoader.getSystemResource(fileName).openStream()) {
-            var bytes = toBytes(is);
-            return StringUtils.fromBytes(bytes);
+        try (var is = ClassLoader.getSystemResource(fileName).openStream()) {
+            return readStreamAsText(is);
         }
     }
 
-    public static byte[] readAsBytes(Path filePath) throws IOException {
+    public static List<String> readResourceAsLines(String fileName) throws IOException {
 
-        try(InputStream is = new FileInputStream(filePath.toFile())) {
-            return toBytes(is);
+        try (var is = ClassLoader.getSystemResource(fileName).openStream();
+             var reader = new InputStreamReader(is);
+             var br = new BufferedReader(reader)) {
+            return br.lines().toList();
         }
     }
 
-    public static String readAsText(Path filePath) throws IOException {
+    public static void readResourceAsLines(String fileName, Consumer<Stream<String>> linesConsumer) throws IOException {
 
-        try(InputStream is = new FileInputStream(filePath.toFile())) {
-            return StringUtils.fromStream(is);
+        try (var is = ClassLoader.getSystemResource(fileName).openStream();
+             var reader = new InputStreamReader(is);
+             var br = new BufferedReader(reader)) {
+            linesConsumer.accept(br.lines());
+        }
+    }
+
+    public static byte[] readFileAsBytes(Path filePath) throws IOException {
+
+        try (var is = new FileInputStream(filePath.toFile())) {
+            return readStreamAsBytes(is);
+        }
+    }
+
+    public static String readFileAsText(Path filePath) throws IOException {
+
+        try (var is = new FileInputStream(filePath.toFile())) {
+            return readStreamAsText(is);
+        }
+    }
+
+    public static List<String> readFileAsLines(Path filePath) throws IOException {
+
+        try (var is = new FileInputStream(filePath.toFile());
+             var reader = new InputStreamReader(is);
+             var br = new BufferedReader(reader)) {
+            return br.lines().toList();
+        }
+    }
+
+    public static void readFileAsLines(Path filePath, Consumer<Stream<String>> linesConsumer) throws IOException {
+
+        try (var is = new FileInputStream(filePath.toFile());
+             var reader = new InputStreamReader(is);
+             var br = new BufferedReader(reader)) {
+            linesConsumer.accept(br.lines());
         }
     }
 
     public static void writeFile(Path filePath, byte[] bytes) throws IOException {
 
-        try(OutputStream os = new FileOutputStream(filePath.toFile())){
+        try (var os = new FileOutputStream(filePath.toFile())) {
             os.write(bytes);
             os.flush();
         }
@@ -107,7 +151,7 @@ public class IOUtils {
 
     public static void writeFile(Path filePath, String text) throws IOException {
 
-        try(OutputStream os = new FileOutputStream(filePath.toFile())){
+        try (var os = new FileOutputStream(filePath.toFile())) {
             os.write(StringUtils.getBytes(text));
             os.flush();
         }
@@ -115,7 +159,8 @@ public class IOUtils {
 
     /**
      * Delete file or directory
-     * @param filePath
+     *
+     * @param filePath the path of the file or directory
      */
     public static void deleteFile(Path filePath) {
 
@@ -123,7 +168,7 @@ public class IOUtils {
         if (!f.exists()) return;
 
         if (f.isDirectory()) {
-            File[] items = f.listFiles();
+            var items = f.listFiles();
             if (items != null) {
                 for (File c : items)
                     deleteFile(c.toPath());
@@ -139,10 +184,9 @@ public class IOUtils {
 
     public static List<Path> listFiles(Path folder, int maxDeep) {
 
-        try(Stream<Path> stream = Files.walk(folder, maxDeep)) {
+        try (var stream = Files.walk(folder, maxDeep)) {
             return stream.sorted(Comparator.comparing(Path::toString)).collect(Collectors.toList());
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             throw new GeneralException(ErrorSeverity.Error, String.format("Cannot list files in %s", folder.toString()), ex);
         }
     }
@@ -154,9 +198,9 @@ public class IOUtils {
 
     public static String createTmpFolder() {
 
-        String folder = String.format("%s%s%s", IOUtils.getSystemTempFolder(), UUID.randomUUID(), File.separator);
-        File theDir = new File(folder);
-        if (!theDir.exists()){
+        var folder = String.format("%s%s%s", IOUtils.getSystemTempFolder(), UUID.randomUUID(), File.separator);
+        var theDir = new File(folder);
+        if (!theDir.exists()) {
             theDir.mkdirs();
         }
         return folder;

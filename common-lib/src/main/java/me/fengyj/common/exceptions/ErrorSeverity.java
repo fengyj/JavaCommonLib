@@ -1,4 +1,4 @@
-package me.fengyj.exception;
+package me.fengyj.common.exceptions;
 
 public enum  ErrorSeverity {
     /**

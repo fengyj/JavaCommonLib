@@ -1,8 +1,8 @@
-package me.fengyj.utils;
+package me.fengyj.common.utils;
 
-import me.fengyj.exception.ErrorSeverity;
-import me.fengyj.exception.ExceptionUtils;
-import me.fengyj.exception.GeneralException;
+import me.fengyj.common.exceptions.ErrorSeverity;
+import me.fengyj.common.exceptions.ExceptionUtils;
+import me.fengyj.common.exceptions.GeneralException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

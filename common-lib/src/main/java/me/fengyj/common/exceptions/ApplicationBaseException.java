@@ -1,4 +1,4 @@
-package me.fengyj.exception;
+package me.fengyj.common.exceptions;
 
 import org.slf4j.Logger;
 import org.slf4j.spi.LoggingEventBuilder;

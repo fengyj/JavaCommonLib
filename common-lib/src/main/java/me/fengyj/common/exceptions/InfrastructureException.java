@@ -1,4 +1,4 @@
-package me.fengyj.exception;
+package me.fengyj.common.exceptions;
 
 import org.slf4j.spi.LoggingEventBuilder;
 
@@ -35,7 +35,7 @@ public class InfrastructureException extends ApplicationBaseException {
     protected LoggingEventBuilder appendLogData(LoggingEventBuilder builder) {
 
         return super.appendLogData(builder)
-                    .addKeyValue("resource_type", this.getResourceInfo().getType())
-                    .addKeyValue("resource_name", this.getResourceInfo().getName());
+                    .addKeyValue("resource_type", this.getResourceInfo().type())
+                    .addKeyValue("resource_name", this.getResourceInfo().name());
     }
 }

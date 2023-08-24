@@ -1,13 +1,19 @@
-package me.fengyj.exception;
+package me.fengyj.common.exceptions;
 
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Used for combining multiple exceptions to a single one.
+ */
 public class AggregatedException extends ApplicationBaseException {
 
     static final long serialVersionUID = -681103267;
+    /**
+     * In case too many exceptions are added to the {@link AggregatedException#exceptions}}.
+     */
     public static final int MaxExceptionsToLog = 50;
-    private List<Exception> exceptions = new LinkedList<>();
+    private final List<Exception> exceptions = new LinkedList<>();
     private int totalExceptions = 0;
 
     public AggregatedException(ErrorSeverity level, String msg) {
@@ -52,8 +58,6 @@ public class AggregatedException extends ApplicationBaseException {
         } else {
             this.exceptions.add(ex);
         }
-        if (this.exceptions.size() > MaxExceptionsToLog)
-            this.exceptions = this.exceptions.subList(0, 20);
 
         return true;
     }

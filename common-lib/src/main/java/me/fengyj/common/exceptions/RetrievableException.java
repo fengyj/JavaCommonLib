@@ -1,4 +1,4 @@
-package me.fengyj.exception;
+package me.fengyj.common.exceptions;
 
 import org.slf4j.spi.LoggingEventBuilder;
 
@@ -55,7 +55,7 @@ public class RetrievableException extends ApplicationBaseException {
 
         return super.appendLogData(builder)
                     .addKeyValue("tried_times", this.triedTimes)
-                    .addKeyValue("resource_type", this.getResourceInfo().getType())
-                    .addKeyValue("resource_name", this.getResourceInfo().getName());
+                    .addKeyValue("resource_type", this.getResourceInfo().type())
+                    .addKeyValue("resource_name", this.getResourceInfo().name());
     }
 }

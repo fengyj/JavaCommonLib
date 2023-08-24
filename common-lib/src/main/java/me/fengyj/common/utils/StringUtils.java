@@ -1,9 +1,9 @@
-package me.fengyj.utils;
+package me.fengyj.common.utils;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 public class StringUtils {
 
@@ -49,10 +49,13 @@ public class StringUtils {
         return new String(bytes, StandardCharsets.UTF_8);
     }
 
-    public static String fromStream(InputStream inputStream) throws IOException {
+    public static List<String> getLines(byte[] bytes) throws IOException {
 
-        var bytes = IOUtils.toBytes(inputStream);
-        return fromBytes(bytes);
+        try (var is = new ByteArrayInputStream(bytes);
+             var reader = new InputStreamReader(is);
+             var br = new BufferedReader(reader)) {
+            return br.lines().toList();
+        }
     }
 
     public static String checkAndFixIllegalChars(String val) {
