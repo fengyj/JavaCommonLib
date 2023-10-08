@@ -132,4 +132,21 @@ public class StringUtils {
     public static String trim(String value) {
         return value == null ? null : value.trim();
     }
+
+    public static String getDataSize(long size) {
+
+        var exts = new String[] { "Byte", "Bytes", "KB", "MB", "GB", "TB" };
+        var extIdx = size == 0 ? 0 : 1;
+        var val = size * 1.0;
+
+        while (size > 0 && val > 1024.0 && extIdx < exts.length - 1) {
+
+            val = val / 1024.0;
+            extIdx++;
+        }
+
+        return extIdx <= 1
+                ? String.format("%.0f %s", val, exts[extIdx])
+                : String.format("%.2f %s", val, exts[extIdx]);
+    }
 }

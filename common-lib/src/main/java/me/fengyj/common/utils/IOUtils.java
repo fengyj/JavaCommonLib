@@ -143,6 +143,11 @@ public class IOUtils {
 
     public static void writeFile(Path filePath, byte[] bytes) throws IOException {
 
+        if(bytes == null) throw new IOException("The content is null.");
+        var file = filePath.toFile();
+        if(file.isDirectory()) throw new IOException("The path is a directory, " + filePath);
+        file.getParentFile().mkdirs();
+
         try (var os = new FileOutputStream(filePath.toFile())) {
             os.write(bytes);
             os.flush();
@@ -150,6 +155,11 @@ public class IOUtils {
     }
 
     public static void writeFile(Path filePath, String text) throws IOException {
+
+        if(text == null) throw new IOException("The content is null.");
+        var file = filePath.toFile();
+        if(file.isDirectory()) throw new IOException("The path is a directory, " + filePath);
+        file.getParentFile().mkdirs();
 
         try (var os = new FileOutputStream(filePath.toFile())) {
             os.write(StringUtils.getBytes(text));
