@@ -29,8 +29,8 @@ public class IOUtils {
 
     public static byte[] readBufferAsBytes(ByteBuffer buffer) {
 
-        buffer.rewind();
-        var bytes = new byte[buffer.remaining()];
+        buffer.flip();
+        var bytes = new byte[buffer.limit()];
         buffer.get(bytes);
         return bytes;
     }

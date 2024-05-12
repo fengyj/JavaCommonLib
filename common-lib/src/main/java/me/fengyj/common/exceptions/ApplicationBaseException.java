@@ -3,9 +3,12 @@ package me.fengyj.common.exceptions;
 import org.slf4j.Logger;
 import org.slf4j.spi.LoggingEventBuilder;
 
+import java.io.Serial;
+
 public class ApplicationBaseException extends RuntimeException {
 
-    static final long serialVersionUID = -340139605L;
+    @Serial
+    private static final long serialVersionUID = -340139605L;
     protected final ErrorSeverity level;
 
     public ApplicationBaseException(ErrorSeverity level, String message, Throwable causedBy) {

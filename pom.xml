@@ -15,13 +15,13 @@
   </modules>
 
   <properties>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-    <jackson.version>2.15.2</jackson.version>
-    <junit.version>5.10.0</junit.version>
-    <logback.version>1.4.11</logback.version>
+    <jackson.version>2.17.0</jackson.version>
+    <junit.version>5.10.0-M1</junit.version>
+    <logback.version>1.4.12</logback.version>
     <slf4j.version>2.0.7</slf4j.version>
 
     <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>

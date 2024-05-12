@@ -1,5 +1,6 @@
 package me.fengyj.common.exceptions;
 
+import java.io.Serial;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,7 +9,8 @@ import java.util.List;
  */
 public class AggregatedException extends ApplicationBaseException {
 
-    static final long serialVersionUID = -681103267;
+    @Serial
+    private static final long serialVersionUID = -681103267;
     /**
      * In case too many exceptions are added to the {@link AggregatedException#exceptions}}.
      */
